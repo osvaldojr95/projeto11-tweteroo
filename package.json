@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/osvaldojr95/projeto11-tweteroo/issues"
   },
-  "homepage": "https://github.com/osvaldojr95/projeto11-tweteroo#readme"
+  "homepage": "https://github.com/osvaldojr95/projeto11-tweteroo#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
 }
