@@ -28,7 +28,7 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-    res.send(tweets.map(tweet => {
+    res.send(tweets.slice(Math.max(tweets.length-10,0)).map(tweet => {
         tweet.avatar = users.find(user => user.username === tweet.username).avatar;
         return tweet;
     }));
