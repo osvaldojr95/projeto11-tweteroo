@@ -5,21 +5,26 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-let _username = null;
 let users = [];
 let tweets = [];
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
-    _username = username;
-    users.push({ username: username, avatar: avatar });
-    res.send("OK");
+    if (username && avatar) {
+        users.push({ username: username, avatar: avatar });
+        res.status(201).send("OK");
+    } else {
+        res.status(400).send("Todos os campos são obrigatórios!")
+    }
 });
 
 app.post("/tweets", (req, res) => {
-    const { username, tweet } = req.body;
-    tweets.push({ username: username, tweet: tweet });
-    res.send("OK");
+    if (username && tweet) {
+        tweets.push({ username: username, tweet: tweet });
+        res.status(201).send("OK");
+    } else {
+        res.status(400).send("Todos os campos são obrigatórios!")
+    }
 });
 
 app.get("/tweets", (req, res) => {
