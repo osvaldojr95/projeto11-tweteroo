@@ -30,17 +30,21 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-    res.send(tweets.slice(Math.max(tweets.length - 10, 0)).map(tweet => {
-        return { ...tweet, avatar: users.find(user => user.username === tweet.username).avatar };
-    }));
+    const { page } = req.query;
+    if (parseInt(page) >= 1) {
+        res.send(tweets.slice(Math.max(tweets.length - (10 * page), 0), Math.max(tweets.length - (10 * (page - 1)), 0)).map(tweet => {
+            return { ...tweet, avatar: users.find(user => user.username === tweet.username).avatar };
+        }).reverse());
+    } else {
+        res.status(400).send("Informe uma página válida!");
+    }
 });
 
 app.get("/tweets/:username", (req, res) => {
     const { username } = req.params;
-    const list = tweets.filter(tweet => tweet.username === username).map(tweet => {
+    res.send(tweets.filter(tweet => tweet.username === username).map(tweet => {
         return { ...tweet, avatar: users.find(user => user.username === username).avatar };
-    });
-    res.send(list);
+    }).reverse());
 });
 
 app.listen(5000, () => {
