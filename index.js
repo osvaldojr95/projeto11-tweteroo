@@ -19,6 +19,7 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
+    const { username, tweet } = req.body;
     if (username && tweet) {
         tweets.push({ username: username, tweet: tweet });
         res.status(201).send("OK");
